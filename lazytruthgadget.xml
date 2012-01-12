@@ -1,0 +1,17 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Module> -<ModulePrefs title="Lazy Truth Gadget" author_location="Boston, MA" author_email="jrnowell@gmail.com" author="Matt Stempeck and Justin Nowell" height="20" description="Looks for words common in certain misleading politically-themed e-mails and automatically formulates a response debunking any spurious claims">
+ <!-- Declare feature dependencies. -->
+ 
+<!-- This one is not specific to Gmail contextual gadgets. -->
+ <Require feature="dynamic-height"/> 
+<!-- The next feature, Caja, is optional, and is supported for use only within test domains. Uncomment the tag only for non-production gadgets. -->
+ 
+<!-- <Require feature="caja"/> -->
+ 
+<!-- The next feature, google.contentmatch, is required for all Gmail contextual gadgets. <Param> - specify one or more comma-separated extractor IDs in a param named "extractors". This line is overridden by the extractor ID in the manifest, but is still expected to be present. -->
+ <Require feature="google.contentmatch"> <Param name="extractors"> google.com:SubjectExtractor </Param> </Require> </ModulePrefs>
+ <!-- Define the content type and display location. The settings "html" and "card" are required for all Gmail contextual gadgets. -->
+ <Content view="card" type="html"> 
+<![CDATA[ <!-- Start with Single Sign-On --> <script type="text/javascript" src="http://example.com/gadgets/sso.js"></script> <script type="text/javascript"> var fraud = {}; fraud ["NO ONE WAS LISTENING"] = "http://www.factcheck.org/askfactcheck/did_obama_say_the_national_anthem_conveys.html"; fraud ["Bankruptcy 101"] = "http://www.factcheck.org/2009/04/cost-of-illegal-immigrants/"; fraud ["TERRORIST SET FREE, & GIVEN A CAR?"] = "This seems to originate from a military humor section on a joke website: http://www.humoretc.com/mhcontent/catch-and-release.php"; fraud ["Brazilian Oil Drilling MUST READ"] = "http://www.factcheck.org/2009/09/bogus-brazilian-oil-claims/"; fraud ["It just gets deeper..."] = "Both the president and the first lady have given up their law licenses voluntarily."; fraud ["WORD OF THE DAY - A MUST READ!"] = "Muslims are not being exempted from the new health care law: http://www.factcheck.org/2010/05/dhimmitude-and-the-muslim-exemption/"; fraud ["A Memory from 1987 (This is bone chilling!!!) PLEASE DON'T DELETE"] = "http://www.factcheck.org/askfactcheck/did_oliver_north_warn_al_gore_about.html"; <!-- Fetch the array of content matches. --> matches = google.contentmatch.getContentMatches(); var matchList = document.createElement('span'); var listItem; var extractedText; <!-- Iterate through the array and display output for each match. --> for (var match in matches) { for (var key in matches[match]) { if (fraud.hasOwnProperty(matches[match][key])) { extractedText = document.createTextNode(fraud[matches[match][key]]); matchList.appendChild(extractedText); } } } document.body.appendChild(matchList); </script> ]]>
+ </Content> </Module>
