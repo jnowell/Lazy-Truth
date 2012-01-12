@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationManifest xmlns="http://schemas.google.com/ApplicationManifest/2009">
+
+  <!-- Name and description pulled from message bundles -->
+  <Name>Lazy Truth Gadget</Name>
+  <Description>A simple application for debunking inaccuracies in commonly-forwarded political e-mails</Description>
+
+  <!-- Show this link in Google's universal navigation for all users -->
+  <Extension id="navLink" type="link">
+    <Name>Lazy Truth</Name>
+    <Url>http://www.lazytruth.com</Url>
+  </Extension>
+
+  <!-- Declare our OpenID realm so our app is white listed -->
+  <Extension id="realm" type="openIdRealm">
+    <Url>http://www.example.com</Url>
+  </Extension>
+
+<!-- EXTRACTOR -->
+
+<Extension id="LazyTruthExtractor" type="contextExtractor">
+  <Name>Lazy Truth Gadget</Name>
+  <Url>google.com:SubjectExtractor</Url>
+  <Param value="Fwd:.*" name="subject"/>
+  <Triggers ref="LazyTruthGadget"/>
+  <Scope ref="emailSubject"/>
+  <Container name="mail"/>
+</Extension>
+
+<!-- GADGET -->
+
+<Extension id="LazyTruthGadget" type="gadget">
+  <Name>Lazy Truth contextual gadget</Name>
+  <Url>http://statussaver.com/justin/gadget.xml</Url>
+  <Container name="mail"/>
+  <!-- Uncomment this to enable Caja. -->
+  <!-- <Param name="caja" value="enabled"/> -->
+</Extension>
+
+
+<!-- SCOPE -->
+
+
+<Scope id="emailSubject">
+  <Url>tag:google.com,2010:auth/contextual/extractor/SUBJECT</Url>
+  <Reason>This application searches the Subject: line of each email
+  to see if matches the subject line of any common misleading e-mail forwards</Reason>
+</Scope>
+
+
+
+</ApplicationManifest>
