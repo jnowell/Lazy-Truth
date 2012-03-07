@@ -1,17 +1,142 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
-<Module> -<ModulePrefs title="Lazy Truth Gadget" author_location="Boston, MA" author_email="jrnowell@gmail.com" author="Matt Stempeck and Justin Nowell" height="20" description="Looks for words common in certain misleading politically-themed e-mails and automatically formulates a response debunking any spurious claims">
- <!-- Declare feature dependencies. -->
- 
+<Module>
+  
+<ModulePrefs title="LazyTruth" description="Checking this email for misinformation..." height="20" author="Matt Stempeck and Justin Nowell" author_email="jrnowell@gmail.com" author_location="Boston, MA">
+
+    
+<!-- Declare feature dependencies. -->
+
+    
 <!-- This one is not specific to Gmail contextual gadgets. -->
- <Require feature="dynamic-height"/> 
-<!-- The next feature, Caja, is optional, and is supported for use only within test domains. Uncomment the tag only for non-production gadgets. -->
- 
+    
+<Require feature="dynamic-height"/>
+
+    
+<!-- The next feature, Caja, is optional, and is supported for
+     use only within test domains. Uncomment the tag only for
+     non-production gadgets. -->
+    
 <!-- <Require feature="caja"/> -->
+
+    
+<!-- The next feature, google.contentmatch, is required for all
+     Gmail contextual gadgets.
+     <Param> - specify one or more comma-separated extractor IDs in
+     a param named "extractors". This line is overridden by the extractor ID
+     in the manifest, but is still expected to be present. -->
+    <Require feature="google.contentmatch">
+      
+<Param name="extractors">
+        google.com:SubjectExtractor
+      </Param>
+    </Require>
+
  
-<!-- The next feature, google.contentmatch, is required for all Gmail contextual gadgets. <Param> - specify one or more comma-separated extractor IDs in a param named "extractors". This line is overridden by the extractor ID in the manifest, but is still expected to be present. -->
- <Require feature="google.contentmatch"> <Param name="extractors"> google.com:SubjectExtractor </Param> </Require> </ModulePrefs>
- <!-- Define the content type and display location. The settings "html" and "card" are required for all Gmail contextual gadgets. -->
- <Content view="card" type="html"> 
-<![CDATA[ <!-- Start with Single Sign-On --> <script type="text/javascript" src="http://example.com/gadgets/sso.js"></script> <script type="text/javascript"> var fraud = {}; fraud ["NO ONE WAS LISTENING"] = "http://www.factcheck.org/askfactcheck/did_obama_say_the_national_anthem_conveys.html"; fraud ["Bankruptcy 101"] = "http://www.factcheck.org/2009/04/cost-of-illegal-immigrants/"; fraud ["TERRORIST SET FREE, & GIVEN A CAR?"] = "This seems to originate from a military humor section on a joke website: http://www.humoretc.com/mhcontent/catch-and-release.php"; fraud ["Brazilian Oil Drilling MUST READ"] = "http://www.factcheck.org/2009/09/bogus-brazilian-oil-claims/"; fraud ["It just gets deeper..."] = "Both the president and the first lady have given up their law licenses voluntarily."; fraud ["WORD OF THE DAY - A MUST READ!"] = "Muslims are not being exempted from the new health care law: http://www.factcheck.org/2010/05/dhimmitude-and-the-muslim-exemption/"; fraud ["A Memory from 1987 (This is bone chilling!!!) PLEASE DON'T DELETE"] = "http://www.factcheck.org/askfactcheck/did_oliver_north_warn_al_gore_about.html"; <!-- Fetch the array of content matches. --> matches = google.contentmatch.getContentMatches(); var matchList = document.createElement('span'); var listItem; var extractedText; <!-- Iterate through the array and display output for each match. --> for (var match in matches) { for (var key in matches[match]) { if (fraud.hasOwnProperty(matches[match][key])) { extractedText = document.createTextNode(fraud[matches[match][key]]); matchList.appendChild(extractedText); } } } document.body.appendChild(matchList); </script> ]]>
- </Content> </Module>
+</ModulePrefs>
+
+  
+<!-- Define the content type and display location. The settings
+   "html" and "card" are required for all Gmail contextual gadgets. -->
+  
+<Content type="html" view="card">
+    
+<![CDATA[
+      
+<!-- Start with Single Sign-On -->
+      
+<script type="text/javascript">
+     
+var fraud = {};
+   
+var text = {};
+var images = {};
+var widths = {};
+fraud ["Martin Comes Out: Ends Eleven-Year Marriage With Tisha Campbell"] = "Gillian Sheldon, TMZ's supervising producer, told Snopes.com that this piece is a \"fabrication\" and that TMZ never posted this article. The couple has repeatedly denied this rumor in interviews. <a style='color:blue;font-weight:bold' target='blank' href='http://snopes.com/inboxer/hoaxes/duanemartin.asp'>http://snopes.com/inboxer/hoaxes/duanemartin.asp</a>"; 
+text["Martin Comes Out: Ends Eleven-Year Marriage With Tisha Campbell"] = "http://snopes.com/inboxer/hoaxes/duanemartin.asp"; 
+images["Martin Comes Out: Ends Eleven-Year Marriage With Tisha Campbell"] = "http://www.statussaver.com/justin/Tisha_Campbell_New_Baby_Pics_Duane_Xen.jpg"; 
+widths["Martin Comes Out: Ends Eleven-Year Marriage With Tisha Campbell"] = "400";
+fraud ["White House will not do Christmas!"] = "President Obama has celebrated Christmas each year he's been in the White House, including large Christmas trees. For more details and photos of the National Christmas trees, see <a style='color:blue;font-weight:bold' target='blank' href='http://factcheck.org/2011/11/we-repeat-still-a-christmas-tree/'>FactCheck.org's coverage</a>.";
+images["White House will not do Christmas!"] = "http://www.statussaver.com/justin/ObamaXmasTree.jpg";
+widths ["White House will not do Christmas!"] = "200";
+fraud ["NO ONE WAS LISTENING"] = "<a style='color:blue;font-weight:bold' target='blank' href='http://www.factcheck.org/askfactcheck/did_obama_say_the_national_anthem_conveys.html'>http://www.factcheck.org/askfactcheck/did_obama_say_the_national_anthem_conveys.html</a>";
+    
+fraud ["Bankruptcy 101"] = "<a style='color:blue;font-weight:bold' target='blank' href='http://www.factcheck.org/2009/04/cost-of-illegal-immigrants/'>http://www.factcheck.org/2009/04/cost-of-illegal-immigrants/</a>";
+    
+fraud ["TERRORIST SET FREE, & GIVEN A CAR?"] = "<a style='color:blue;font-weight:bold' target='blank' href='http://www.humoretc.com/mhcontent/catch-and-release.php'>http://www.humoretc.com/mhcontent/catch-and-release.php</a>";
+    
+fraud ["Brazilian Oil Drilling MUST READ"] = "<a style='color:blue;font-weight:bold' target='blank' href='http://www.factcheck.org/2009/09/bogus-brazilian-oil-claims'>http://www.factcheck.org/2009/09/bogus-brazilian-oil-claims</a>";
+   
+fraud ["WORD OF THE DAY - A MUST READ!"] = "<a style='color:blue;font-weight:bold' target='blank' href='http://www.factcheck.org/2010/05/dhimmitude-and-the-muslim-exemption/'>http://www.factcheck.org/2010/05/dhimmitude-and-the-muslim-exemption/</a>";
+    
+fraud ["A Memory from 1987 (This is bone chilling!!!) PLEASE DON'T DELETE"] = "<a style='color:blue;font-weight:bold' target='blank' href='http://www.factcheck.org/askfactcheck/did_oliver_north_warn_al_gore_about.html'>http://www.factcheck.org/askfactcheck/did_oliver_north_warn_al_gore_about.html</a>";
+
+        
+<!-- Fetch the array of content matches. -->
+        
+matches = google.contentmatch.getContentMatches();
+        
+var matchList = document.createElement('div');
+var listItem;
+        
+var extractedText;
+
+  
+var extractedText2;
+var srcIcon;    
+var srcImage;
+<!-- Iterate through the array and display output for each match. -->
+        
+for (var match in matches) {
+     
+	for (var key in matches[match]) {  
+		if (fraud.hasOwnProperty(matches[match][key])) {
+    
+			extractedText = document.createTextNode(fraud[matches[match][key]]);  
+			link = document.createElement("span");
+			srcIcon = document.createElement("img"); 
+			srcIcon.setAttribute('src','http://statussaver.com/justin/factcheck.ico'); 
+			srcIcon.style.paddingRight='0.5em'; 
+			link.setAttribute('style','font-size:80%;');
+			link.innerHTML = fraud[matches[match][key]]; 
+			matchList.appendChild(srcIcon); 
+			matchList.appendChild(link);   
+			if (images.hasOwnProperty(matches[match][key])) {
+				srcImageDiv = document.createElement("div");
+				srcImage = document.createElement("img");
+				srcImage.setAttribute('src',images[matches[match][key]]);
+				srcImage.setAttribute('width',widths[matches[match][key]]);
+				srcImage.setAttribute('height','300');
+				srcImageDiv.setAttribute('align','center');
+				srcImageDiv.setAttribute('style','padding-top:1em;');
+				srcImageDiv.appendChild(srcImage);
+				matchList.appendChild(srcImageDiv);
+				gadgets.window.adjustHeight(380);
+			}  else {
+			gadgets.window.adjustHeight(50);
+			}
+			 
+		}    else {
+			extractedText= document.createTextNode("We do not have any information about this email. But that doesn't mean it's true. You can help us out by forwarding it to ");
+			link = document.createElement("a");
+			link.setAttribute('href','mailto:checkme@lazytruth.com');
+			link.innerHTML = "checkme@lazytruth.com";
+			extractedText2 = document.createTextNode(".");
+			matchList.appendChild(extractedText);
+			matchList.appendChild(link);
+			matchList.appendChild(extractedText2);
+		}  
+		matchList.style.fontSize="0.9em"; 
+		matchList.style.padding="0.5em";
+		
+	}
+        
+}
+   
+document.body.appendChild(matchList);
+           
+</script>
+    ]]>
+  
+</Content>
+
+</Module>
